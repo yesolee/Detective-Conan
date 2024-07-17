@@ -57,7 +57,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script><script src="site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="site_libs/quarto-nav/headroom.min.js"></script>
 <script src="site_libs/clipboard/clipboard.min.js"></script>
 <script src="site_libs/quarto-search/autocomplete.umd.js"></script>
@@ -100,6 +100,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-label": "Search"
   }
 }</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+
+
+
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+
 
 
 <link rel="stylesheet" href="styles.css">
@@ -167,10 +173,911 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 <p>About this site</p>
-<div id="593b291c" class="cell" data-execution_count="1">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="op">+</span> <span class="dv">1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="449bb691" class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>df<span class="op">=</span>pd.read_csv(<span class="st">'crime.csv'</span>,encoding<span class="op">=</span><span class="st">'EUC-KR'</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="1">
-<pre><code>2</code></pre>
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">시점</th>
+<th data-quarto-table-cell-role="th">범죄발생요일별(1)</th>
+<th data-quarto-table-cell-role="th">강력범죄</th>
+<th data-quarto-table-cell-role="th">강력범죄.1</th>
+<th data-quarto-table-cell-role="th">강력범죄.2</th>
+<th data-quarto-table-cell-role="th">강력범죄.3</th>
+<th data-quarto-table-cell-role="th">강력범죄.4</th>
+<th data-quarto-table-cell-role="th">강력범죄.5</th>
+<th data-quarto-table-cell-role="th">강력범죄.6</th>
+<th data-quarto-table-cell-role="th">강력범죄.7</th>
+<th data-quarto-table-cell-role="th">...</th>
+<th data-quarto-table-cell-role="th">지능범죄</th>
+<th data-quarto-table-cell-role="th">지능범죄.1</th>
+<th data-quarto-table-cell-role="th">지능범죄.2</th>
+<th data-quarto-table-cell-role="th">지능범죄.3</th>
+<th data-quarto-table-cell-role="th">지능범죄.4</th>
+<th data-quarto-table-cell-role="th">지능범죄.5</th>
+<th data-quarto-table-cell-role="th">지능범죄.6</th>
+<th data-quarto-table-cell-role="th">지능범죄.7</th>
+<th data-quarto-table-cell-role="th">지능범죄.8</th>
+<th data-quarto-table-cell-role="th">지능범죄.9</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>시점</td>
+<td>범죄발생요일별(1)</td>
+<td>소계</td>
+<td>살인기수</td>
+<td>살인미수등</td>
+<td>강도</td>
+<td>강간</td>
+<td>유사강간</td>
+<td>강제추행</td>
+<td>기타 강간·강제추행등</td>
+<td>...</td>
+<td>소계</td>
+<td>직무유기</td>
+<td>직권남용</td>
+<td>증수뢰</td>
+<td>통화</td>
+<td>문서·인장</td>
+<td>유가증권인지</td>
+<td>사기</td>
+<td>횡령</td>
+<td>배임</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>2018</td>
+<td>일요일</td>
+<td>4154</td>
+<td>54</td>
+<td>72</td>
+<td>126</td>
+<td>906</td>
+<td>127</td>
+<td>2564</td>
+<td>49</td>
+<td>...</td>
+<td>27392</td>
+<td>39</td>
+<td>33</td>
+<td>22</td>
+<td>34</td>
+<td>673</td>
+<td>17</td>
+<td>19524</td>
+<td>6802</td>
+<td>248</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>2018</td>
+<td>월요일</td>
+<td>3529</td>
+<td>40</td>
+<td>74</td>
+<td>120</td>
+<td>698</td>
+<td>113</td>
+<td>2197</td>
+<td>51</td>
+<td>...</td>
+<td>56954</td>
+<td>105</td>
+<td>96</td>
+<td>53</td>
+<td>230</td>
+<td>2202</td>
+<td>20</td>
+<td>45478</td>
+<td>7968</td>
+<td>802</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>2018</td>
+<td>화요일</td>
+<td>3619</td>
+<td>38</td>
+<td>62</td>
+<td>133</td>
+<td>709</td>
+<td>103</td>
+<td>2263</td>
+<td>48</td>
+<td>...</td>
+<td>56076</td>
+<td>92</td>
+<td>110</td>
+<td>57</td>
+<td>226</td>
+<td>1992</td>
+<td>25</td>
+<td>45020</td>
+<td>7793</td>
+<td>761</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>2018</td>
+<td>수요일</td>
+<td>3693</td>
+<td>53</td>
+<td>68</td>
+<td>116</td>
+<td>743</td>
+<td>96</td>
+<td>2333</td>
+<td>49</td>
+<td>...</td>
+<td>56448</td>
+<td>92</td>
+<td>110</td>
+<td>69</td>
+<td>208</td>
+<td>1893</td>
+<td>30</td>
+<td>45399</td>
+<td>7922</td>
+<td>725</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">5</td>
+<td>2018</td>
+<td>목요일</td>
+<td>3659</td>
+<td>41</td>
+<td>76</td>
+<td>117</td>
+<td>646</td>
+<td>99</td>
+<td>2389</td>
+<td>45</td>
+<td>...</td>
+<td>57746</td>
+<td>114</td>
+<td>110</td>
+<td>64</td>
+<td>242</td>
+<td>2710</td>
+<td>32</td>
+<td>45752</td>
+<td>7992</td>
+<td>730</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">6</td>
+<td>2018</td>
+<td>금요일</td>
+<td>3834</td>
+<td>54</td>
+<td>67</td>
+<td>101</td>
+<td>699</td>
+<td>99</td>
+<td>2547</td>
+<td>55</td>
+<td>...</td>
+<td>58834</td>
+<td>103</td>
+<td>104</td>
+<td>61</td>
+<td>212</td>
+<td>1991</td>
+<td>58</td>
+<td>46698</td>
+<td>8817</td>
+<td>790</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">7</td>
+<td>2018</td>
+<td>토요일</td>
+<td>4299</td>
+<td>29</td>
+<td>69</td>
+<td>108</td>
+<td>892</td>
+<td>139</td>
+<td>2760</td>
+<td>59</td>
+<td>...</td>
+<td>31248</td>
+<td>36</td>
+<td>40</td>
+<td>21</td>
+<td>42</td>
+<td>829</td>
+<td>15</td>
+<td>22158</td>
+<td>7819</td>
+<td>288</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">8</td>
+<td>2019</td>
+<td>일요일</td>
+<td>4081</td>
+<td>38</td>
+<td>71</td>
+<td>111</td>
+<td>869</td>
+<td>145</td>
+<td>2580</td>
+<td>58</td>
+<td>...</td>
+<td>29037</td>
+<td>24</td>
+<td>44</td>
+<td>13</td>
+<td>35</td>
+<td>620</td>
+<td>8</td>
+<td>20814</td>
+<td>7231</td>
+<td>248</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">9</td>
+<td>2019</td>
+<td>월요일</td>
+<td>3519</td>
+<td>45</td>
+<td>70</td>
+<td>113</td>
+<td>686</td>
+<td>99</td>
+<td>2272</td>
+<td>53</td>
+<td>...</td>
+<td>64776</td>
+<td>108</td>
+<td>126</td>
+<td>46</td>
+<td>186</td>
+<td>2130</td>
+<td>22</td>
+<td>52740</td>
+<td>8559</td>
+<td>859</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">10</td>
+<td>2019</td>
+<td>화요일</td>
+<td>3607</td>
+<td>48</td>
+<td>68</td>
+<td>116</td>
+<td>734</td>
+<td>109</td>
+<td>2306</td>
+<td>45</td>
+<td>...</td>
+<td>63173</td>
+<td>123</td>
+<td>118</td>
+<td>42</td>
+<td>169</td>
+<td>1971</td>
+<td>16</td>
+<td>51876</td>
+<td>8128</td>
+<td>730</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">11</td>
+<td>2019</td>
+<td>수요일</td>
+<td>3634</td>
+<td>40</td>
+<td>62</td>
+<td>105</td>
+<td>719</td>
+<td>92</td>
+<td>2358</td>
+<td>49</td>
+<td>...</td>
+<td>62642</td>
+<td>106</td>
+<td>97</td>
+<td>52</td>
+<td>187</td>
+<td>1840</td>
+<td>30</td>
+<td>51225</td>
+<td>8318</td>
+<td>787</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">12</td>
+<td>2019</td>
+<td>목요일</td>
+<td>3445</td>
+<td>37</td>
+<td>73</td>
+<td>124</td>
+<td>682</td>
+<td>89</td>
+<td>2231</td>
+<td>39</td>
+<td>...</td>
+<td>63327</td>
+<td>99</td>
+<td>107</td>
+<td>42</td>
+<td>177</td>
+<td>2032</td>
+<td>21</td>
+<td>51654</td>
+<td>8460</td>
+<td>735</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">13</td>
+<td>2019</td>
+<td>금요일</td>
+<td>3880</td>
+<td>49</td>
+<td>85</td>
+<td>121</td>
+<td>722</td>
+<td>112</td>
+<td>2542</td>
+<td>43</td>
+<td>...</td>
+<td>64724</td>
+<td>102</td>
+<td>136</td>
+<td>45</td>
+<td>178</td>
+<td>1978</td>
+<td>24</td>
+<td>52039</td>
+<td>9317</td>
+<td>905</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">14</td>
+<td>2019</td>
+<td>토요일</td>
+<td>4310</td>
+<td>40</td>
+<td>53</td>
+<td>108</td>
+<td>898</td>
+<td>136</td>
+<td>2831</td>
+<td>38</td>
+<td>...</td>
+<td>33854</td>
+<td>28</td>
+<td>46</td>
+<td>20</td>
+<td>48</td>
+<td>772</td>
+<td>19</td>
+<td>24124</td>
+<td>8495</td>
+<td>302</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">15</td>
+<td>2020</td>
+<td>일요일</td>
+<td>3637</td>
+<td>58</td>
+<td>57</td>
+<td>77</td>
+<td>909</td>
+<td>118</td>
+<td>2185</td>
+<td>32</td>
+<td>...</td>
+<td>32442</td>
+<td>36</td>
+<td>36</td>
+<td>15</td>
+<td>30</td>
+<td>570</td>
+<td>2</td>
+<td>24493</td>
+<td>7045</td>
+<td>215</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">16</td>
+<td>2020</td>
+<td>월요일</td>
+<td>3320</td>
+<td>53</td>
+<td>68</td>
+<td>118</td>
+<td>699</td>
+<td>96</td>
+<td>2068</td>
+<td>38</td>
+<td>...</td>
+<td>73767</td>
+<td>152</td>
+<td>122</td>
+<td>40</td>
+<td>141</td>
+<td>2197</td>
+<td>13</td>
+<td>61648</td>
+<td>8753</td>
+<td>701</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">17</td>
+<td>2020</td>
+<td>화요일</td>
+<td>3121</td>
+<td>53</td>
+<td>50</td>
+<td>98</td>
+<td>667</td>
+<td>100</td>
+<td>1964</td>
+<td>25</td>
+<td>...</td>
+<td>70867</td>
+<td>119</td>
+<td>123</td>
+<td>64</td>
+<td>123</td>
+<td>2006</td>
+<td>15</td>
+<td>59192</td>
+<td>8497</td>
+<td>728</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">18</td>
+<td>2020</td>
+<td>수요일</td>
+<td>3402</td>
+<td>43</td>
+<td>60</td>
+<td>103</td>
+<td>712</td>
+<td>135</td>
+<td>2152</td>
+<td>36</td>
+<td>...</td>
+<td>69560</td>
+<td>134</td>
+<td>115</td>
+<td>38</td>
+<td>101</td>
+<td>1974</td>
+<td>19</td>
+<td>57917</td>
+<td>8527</td>
+<td>735</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">19</td>
+<td>2020</td>
+<td>목요일</td>
+<td>3312</td>
+<td>30</td>
+<td>62</td>
+<td>105</td>
+<td>701</td>
+<td>112</td>
+<td>2082</td>
+<td>28</td>
+<td>...</td>
+<td>70131</td>
+<td>117</td>
+<td>126</td>
+<td>63</td>
+<td>110</td>
+<td>1956</td>
+<td>14</td>
+<td>58505</td>
+<td>8537</td>
+<td>703</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">20</td>
+<td>2020</td>
+<td>금요일</td>
+<td>3644</td>
+<td>42</td>
+<td>51</td>
+<td>84</td>
+<td>760</td>
+<td>111</td>
+<td>2390</td>
+<td>31</td>
+<td>...</td>
+<td>70358</td>
+<td>123</td>
+<td>157</td>
+<td>46</td>
+<td>99</td>
+<td>2100</td>
+<td>15</td>
+<td>57481</td>
+<td>9572</td>
+<td>765</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">21</td>
+<td>2020</td>
+<td>토요일</td>
+<td>3896</td>
+<td>29</td>
+<td>68</td>
+<td>78</td>
+<td>865</td>
+<td>151</td>
+<td>2503</td>
+<td>47</td>
+<td>...</td>
+<td>37517</td>
+<td>49</td>
+<td>45</td>
+<td>23</td>
+<td>22</td>
+<td>730</td>
+<td>6</td>
+<td>28439</td>
+<td>7958</td>
+<td>245</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">22</td>
+<td>2021</td>
+<td>일요일</td>
+<td>3251</td>
+<td>39</td>
+<td>53</td>
+<td>84</td>
+<td>878</td>
+<td>125</td>
+<td>1862</td>
+<td>46</td>
+<td>...</td>
+<td>26069</td>
+<td>29</td>
+<td>49</td>
+<td>22</td>
+<td>17</td>
+<td>416</td>
+<td>2</td>
+<td>19660</td>
+<td>5692</td>
+<td>182</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">23</td>
+<td>2021</td>
+<td>월요일</td>
+<td>3267</td>
+<td>34</td>
+<td>64</td>
+<td>53</td>
+<td>773</td>
+<td>139</td>
+<td>1994</td>
+<td>37</td>
+<td>...</td>
+<td>63251</td>
+<td>200</td>
+<td>162</td>
+<td>56</td>
+<td>76</td>
+<td>2026</td>
+<td>18</td>
+<td>52445</td>
+<td>7572</td>
+<td>696</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">24</td>
+<td>2021</td>
+<td>화요일</td>
+<td>2953</td>
+<td>38</td>
+<td>56</td>
+<td>68</td>
+<td>656</td>
+<td>93</td>
+<td>1844</td>
+<td>41</td>
+<td>...</td>
+<td>62213</td>
+<td>178</td>
+<td>152</td>
+<td>62</td>
+<td>72</td>
+<td>1959</td>
+<td>11</td>
+<td>51793</td>
+<td>7367</td>
+<td>619</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">25</td>
+<td>2021</td>
+<td>수요일</td>
+<td>3119</td>
+<td>32</td>
+<td>55</td>
+<td>72</td>
+<td>654</td>
+<td>122</td>
+<td>2025</td>
+<td>28</td>
+<td>...</td>
+<td>59925</td>
+<td>166</td>
+<td>142</td>
+<td>62</td>
+<td>61</td>
+<td>1843</td>
+<td>8</td>
+<td>49687</td>
+<td>7395</td>
+<td>561</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">26</td>
+<td>2021</td>
+<td>목요일</td>
+<td>3127</td>
+<td>37</td>
+<td>48</td>
+<td>66</td>
+<td>706</td>
+<td>106</td>
+<td>1988</td>
+<td>35</td>
+<td>...</td>
+<td>60576</td>
+<td>180</td>
+<td>174</td>
+<td>67</td>
+<td>69</td>
+<td>1853</td>
+<td>10</td>
+<td>50177</td>
+<td>7486</td>
+<td>560</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">27</td>
+<td>2021</td>
+<td>금요일</td>
+<td>3228</td>
+<td>52</td>
+<td>59</td>
+<td>88</td>
+<td>695</td>
+<td>100</td>
+<td>2071</td>
+<td>27</td>
+<td>...</td>
+<td>58798</td>
+<td>165</td>
+<td>156</td>
+<td>99</td>
+<td>68</td>
+<td>1790</td>
+<td>8</td>
+<td>47878</td>
+<td>8019</td>
+<td>615</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">28</td>
+<td>2021</td>
+<td>토요일</td>
+<td>3531</td>
+<td>38</td>
+<td>53</td>
+<td>64</td>
+<td>901</td>
+<td>129</td>
+<td>2178</td>
+<td>24</td>
+<td>...</td>
+<td>30275</td>
+<td>39</td>
+<td>40</td>
+<td>34</td>
+<td>13</td>
+<td>585</td>
+<td>6</td>
+<td>22435</td>
+<td>6890</td>
+<td>233</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">29</td>
+<td>2022</td>
+<td>일요일</td>
+<td>3596</td>
+<td>32</td>
+<td>65</td>
+<td>82</td>
+<td>869</td>
+<td>145</td>
+<td>2185</td>
+<td>32</td>
+<td>...</td>
+<td>30173</td>
+<td>66</td>
+<td>75</td>
+<td>11</td>
+<td>12</td>
+<td>484</td>
+<td>3</td>
+<td>22374</td>
+<td>7000</td>
+<td>148</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">30</td>
+<td>2022</td>
+<td>월요일</td>
+<td>3445</td>
+<td>43</td>
+<td>62</td>
+<td>80</td>
+<td>770</td>
+<td>131</td>
+<td>2163</td>
+<td>36</td>
+<td>...</td>
+<td>68747</td>
+<td>301</td>
+<td>345</td>
+<td>44</td>
+<td>90</td>
+<td>2082</td>
+<td>8</td>
+<td>56266</td>
+<td>8944</td>
+<td>667</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">31</td>
+<td>2022</td>
+<td>화요일</td>
+<td>3420</td>
+<td>43</td>
+<td>76</td>
+<td>91</td>
+<td>728</td>
+<td>123</td>
+<td>2153</td>
+<td>29</td>
+<td>...</td>
+<td>68148</td>
+<td>307</td>
+<td>344</td>
+<td>59</td>
+<td>80</td>
+<td>2073</td>
+<td>17</td>
+<td>55981</td>
+<td>8623</td>
+<td>664</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">32</td>
+<td>2022</td>
+<td>수요일</td>
+<td>3403</td>
+<td>46</td>
+<td>54</td>
+<td>64</td>
+<td>718</td>
+<td>137</td>
+<td>2214</td>
+<td>29</td>
+<td>...</td>
+<td>66354</td>
+<td>278</td>
+<td>314</td>
+<td>51</td>
+<td>86</td>
+<td>1946</td>
+<td>10</td>
+<td>54397</td>
+<td>8629</td>
+<td>643</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">33</td>
+<td>2022</td>
+<td>목요일</td>
+<td>3411</td>
+<td>39</td>
+<td>57</td>
+<td>58</td>
+<td>681</td>
+<td>125</td>
+<td>2223</td>
+<td>31</td>
+<td>...</td>
+<td>67742</td>
+<td>280</td>
+<td>370</td>
+<td>56</td>
+<td>77</td>
+<td>1985</td>
+<td>10</td>
+<td>55538</td>
+<td>8786</td>
+<td>640</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">34</td>
+<td>2022</td>
+<td>금요일</td>
+<td>3653</td>
+<td>37</td>
+<td>58</td>
+<td>73</td>
+<td>772</td>
+<td>129</td>
+<td>2359</td>
+<td>35</td>
+<td>...</td>
+<td>68516</td>
+<td>276</td>
+<td>277</td>
+<td>74</td>
+<td>83</td>
+<td>2022</td>
+<td>8</td>
+<td>55241</td>
+<td>9845</td>
+<td>690</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">35</td>
+<td>2022</td>
+<td>토요일</td>
+<td>4026</td>
+<td>35</td>
+<td>55</td>
+<td>68</td>
+<td>929</td>
+<td>157</td>
+<td>2567</td>
+<td>33</td>
+<td>...</td>
+<td>35425</td>
+<td>42</td>
+<td>67</td>
+<td>25</td>
+<td>24</td>
+<td>667</td>
+<td>2</td>
+<td>26051</td>
+<td>8393</td>
+<td>154</td>
+</tr>
+</tbody>
+</table>
+
+<p>36 rows × 30 columns</p>
+</div>
 </div>
 </div>
 

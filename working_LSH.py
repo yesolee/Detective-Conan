@@ -55,7 +55,7 @@ gang = gang.assign(
     total_gang = lambda x : x.iloc[:, 2:10].sum(axis = 1),
     mean_gang = lambda x : x['total_gang'] / 8)
     
-intel = gang.assign(
+intel = intel.assign(
     total_intel = lambda x : x.iloc[:, 2:11].sum(axis = 1),
     mean_intel = lambda x : x['total_intel'] / 9)
 
@@ -66,9 +66,14 @@ intel.head()
 
 # 각 범죄 대분류별 범죄 발생 건수 차이 - 그래프
 
+
 # 각 범죄별 평일/주말 범죄 발생 건수 추이 - 그래프
-## 평일/주말 어떻게 나눌 건지
+## 평일(월 ~ 금), 주말(토~ 일)
+
 
 # 각 연도별 특정 요일의 범죄 발생 건수 추세
-## 신체적 피해/심리적 피해로 나누었을 때, 어떤 범죄의 범죄율이 높은지?
-## 연도별 특정 이벤트도 반영해서 분석 (ex. 팬데믹)
+# 산점도 199, 막대 그래프 272, 274
+
+import seaborn as sns
+
+

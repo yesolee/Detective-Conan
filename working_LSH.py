@@ -12,6 +12,7 @@ crime.describe()
 crime.info()
 
 # 0번 행을 열로 변경
+?crime.rename
 crime = crime.rename(columns = crime.iloc[0])
 
 # 중복되는 0번 행 삭제
@@ -61,19 +62,49 @@ intel = intel.assign(
 
 crime.head()
 strong.head()
-gang .head()
-intel.head()
 
+gang.columns
+intel.columns
+
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+s_total_y = strong.groupby('year',as_index=False).sum().iloc[:,[0,-2]]
+g_total_y = gang.groupby('year',as_index=False).sum().iloc[:,[0,-2]]
+i_total_y = intel.groupby('year',as_index=False).sum().iloc[:,[0,-2]]
+total_sg_y = pd.merge(s_total_y,g_total_y,how='left',on='year')
+total_y = pd.merge(total_sg_y,i_total_y,how='left',on='year')
+total_y
+# sns.barplot(data=total_y, x='year', y='total_strong')
+total_y.plot.barh(stacked = True)
+plt.figure(figsize=(6, 10))
+plt.show()
+plt.clf()
 # 각 범죄 대분류별 범죄 발생 건수 차이 - 그래프
+<<<<<<< HEAD:working.py
+# 272쪽, 274쪽
+# 각 범죄별 평일/주말 범죄 발생 건수 추이 - 그래프
+## 평일/주말 어떻게 나눌 건지 5일(월~금)/2일(토,일)
+#평일 평균/ 주말 평균 내서 파생변수 높고 낮음
+=======
 
 
 # 각 범죄별 평일/주말 범죄 발생 건수 추이 - 그래프
 ## 평일(월 ~ 금), 주말(토~ 일)
 
+>>>>>>> 7a8e51f0632c16e2ac615113908630166c1a733a:working_LSH.py
 
+strong.head(7)
 # 각 연도별 특정 요일의 범죄 발생 건수 추세
+<<<<<<< HEAD:working.py
+
+## 신체적 피해/심리적 피해로 나누었을 때, 어떤 범죄의 범죄율이 높은지?
+
+## 연도별 특정 이벤트도 반영해서 분석 (ex. 팬데믹)
+=======
 # 산점도 199, 막대 그래프 272, 274
 
 import seaborn as sns
 
 
+>>>>>>> 7a8e51f0632c16e2ac615113908630166c1a733a:working_LSH.py

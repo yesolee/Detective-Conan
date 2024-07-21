@@ -12,7 +12,6 @@ crime.describe()
 crime.info()
 
 # 0번 행을 열로 변경
-?crime.rename
 crime = crime.rename(columns = crime.iloc[0])
 
 # 중복되는 0번 행 삭제
@@ -33,6 +32,7 @@ crime.loc[crime['day'] == '일요일', 'day'] = 'sun'
 df = crime
 df.loc[:, df.columns != 'day'] = df.loc[:, df.columns != 'day'].apply(pd.to_numeric) # to_numeric 어떻게 작동하는지 확인하기 
 crime = df
+
 
 # 범죄 대분류 별로 데이터 분리 (강력/폭력/지능)
 strong = crime.iloc[:, 0:10]
@@ -60,35 +60,34 @@ intel = intel.assign(
     total_intel = lambda x : x.iloc[:, 2:11].sum(axis = 1),
     mean_intel = lambda x : x['total_intel'] / 9)
 
-crime.head()
-strong.head()
-
-gang.columns
-intel.columns
-
-import seaborn as sns
+# 각 범죄 대분류별 범죄 발생 건수 차이 - 그래프
 import matplotlib.pyplot as plt
+import seaborn as sns
 
-s_total_y = strong.groupby('year',as_index=False).sum().iloc[:,[0,-2]]
-g_total_y = gang.groupby('year',as_index=False).sum().iloc[:,[0,-2]]
-i_total_y = intel.groupby('year',as_index=False).sum().iloc[:,[0,-2]]
-total_sg_y = pd.merge(s_total_y,g_total_y,how='left',on='year')
-total_y = pd.merge(total_sg_y,i_total_y,how='left',on='year')
-total_y
-# sns.barplot(data=total_y, x='year', y='total_strong')
-total_y.plot.barh(stacked = True)
-plt.figure(figsize=(6, 10))
+year_total = crime.loc[:, crime.columns != 'day'].groupby('year').sum()
+
+year_total = year_total.assign(
+    strong_total = year_total.iloc[:, 0:8].sum(axis = 1),
+    gang_total = year_total.iloc[:, 8:16].sum(axis = 1),
+    intel_total = year_total.iloc[:, 16:25].sum(axis = 1))
+
+year_total = year_total.iloc[:, 27:30]
+year_total.plot.barh(stacked = True)
 plt.show()
 plt.clf()
-# 각 범죄 대분류별 범죄 발생 건수 차이 - 그래프
-# 272쪽, 274쪽
+
 # 각 범죄별 평일/주말 범죄 발생 건수 추이 - 그래프
-## 평일/주말 어떻게 나눌 건지 5일(월~금)/2일(토,일)
-#평일 평균/ 주말 평균 내서 파생변수 높고 낮음
+## 평일: 월~금, 주말: 토~일
+crime['day_label'] = np.where(crime['day'].isin(['mon', 'tue', 'wed', 'thu', 'fri']), 'week', 'weekend')
+crime.head()
 
-strong.head(7)
-# 각 연도별 특정 요일의 범죄 발생 건수 추세
+sns.barplot(data = crime, y = 'total', x = 'day_label', hue = 'day_label')
+plt.show()
+plt.clf()
 
-## 신체적 피해/심리적 피해로 나누었을 때, 어떤 범죄의 범죄율이 높은지?
-
+# 각 연도별 / 각 연도별 특정 요일의 범죄 발생 건수 추세
 ## 연도별 특정 이벤트도 반영해서 분석 (ex. 팬데믹)
+
+sns.barplot(data = crime, x = 'year', y = 'total')
+plt.show()
+plt.clf()

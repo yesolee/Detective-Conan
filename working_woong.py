@@ -1,7 +1,7 @@
 import pandas as pd
 import numpy as np
 
-# raw data 불러오기
+# raw data 불러오기##
 df = pd.read_csv('crime.csv', encoding = 'EUC-KR') # encoding에 대해 찾아보기
 
 # 데이터 복제

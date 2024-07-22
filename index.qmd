@@ -1,12 +1,195 @@
 ---
-title: "testwebsite"
+title: "어느 요일이 범죄로부터 가장 안전할까?"
+author: "내이름은코난탐정이조"
 jupyter: python3
 ---
+#### **2018~2022년 강력/폭력/지능범죄의 요일별 발생 건수 데이터**
 
-This is a Quarto website.
+#### 가설 : 평일이 상대적으로 안전할 것이다.
 
-To learn more about Quarto websites visit <https://quarto.org/docs/websites>.
+#### **범죄의 정의**
+* **강력범죄** : 생명, 신체, 자유에 심각한 위협을 가하는 범죄
+* **폭력범죄** : 다른 사람에게 신체적 상해를 입히거나 신체적 위협을 가하는 범죄
+* **지능범죄** : 지적 능력과 계획을 통해 이루어지며, 주로 경제적 이득을 얻기 위한 범죄
+---
+
+### **[데이터 로드]**
+```{python}
+# 0. 패키지 로드
+import pandas as pd
+import numpy as np
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+# 1. 데이터 파일 불러오기, 원본 데이터 복사하기
+## UnicodeDecodeError 발생: encoding 지정 
+## 0번째 데이터를 열의 이름으로 지정하고 싶음:
+df=pd.read_csv('crime.csv', header = 1, encoding='EUC-KR')
+df.head()
+
+# 2. 원본 데이터 복사하기(deepcopy로 원본유지)
+crime = df.copy()
+```
+### **[변수명 변경]**
+```{python}
+# 3. 변수명 바꾸기
+crime.columns
+## 강력범죄는 s, 폭력범죄는 g, 지능범죄는 i로 시작하고 싶음 
+## 글자 바꾸기: replace, 리스트+리스트=리스트, 변수할당 적용
+crime.columns = ['year','day']\
+                + [i.replace(i, "s_"+i) for i in crime.columns[2:10]]\
+                + [i.replace(i, "g_"+i) for i in crime.columns[10:18]]\
+                + [i.replace(i, "i_"+i) for i in crime.columns[18:27]]
+crime.columns
+## 행의 요일을 영어로 한번에 바꾸기 :replace()
+crime = crime.replace({'월요일':'mon',
+                       '화요일':'tue',
+                       '수요일':'wed',
+                       '목요일':'thu',
+                       '금요일':'fri',
+                       '토요일':'sat',
+                       '일요일':'sun'})
+crime.head(7)
+
+## 행의 순서 바꾸기(일>토에서 월>일로): reindex()
+len(crime)
+crime = crime.reindex([1,2,3,4,5,6,0,
+                       8,9,10,11,12,13,7,
+                       15,16,17,18,19,20,14,
+                       22,23,24,25,26,27,21,
+                       29,30,31,32,33,34,28])
+crime.head(7)
+```
+
+### **[파생변수 추가]**
+```{python}
+# 범죄별 건수 합계 및 총 범죄 건수 합계
+crime = crime.assign(
+    total_s=crime.iloc[:,2:10].sum(axis=1),
+    total_g=crime.iloc[:,10:18].sum(axis=1),
+    total_i=crime.iloc[:,18:27].sum(axis=1),
+    total=crime.iloc[:,2:27].sum(axis=1)
+)
+crime.head()
+
+## 평일: 월~금, 주말: 토~일
+crime['day_label'] = np.where(crime['day'].isin(['mon', 'tue', 'wed', 'thu', 'fri']), 'week', 'weekend')
+crime.head(7)
+```
+
+### **[범죄별, 평일/주말별 건수 합계 그래프]**
+```{python}
+# 연도 기준 범죄별 건수 합계
+plt.rcParams.update({'font.family':'Malgun Gothic','font.size' : 10})
+plt.figure(figsize = (5, 4))
+
+year_total = crime.groupby('year')\
+                  .agg(강력범죄=('total_s','sum'),
+                       폭력범죄=('total_g','sum'),
+                       지능범죄=('total_i','sum'))
+                       
+year_total.plot.barh(stacked = True)
+plt.xlabel("건수")
+plt.ylabel("연도")
+plt.title("각 범죄 발생 건수 비율 그래프")
+plt.show()
+plt.clf()
+
+# 평일/주말 기준 건수 합계
+# 평일/주말 기준 건수 합계
+# sns.barplot(data = crime, y = 'total', x = 'day_label', hue = 'day_label', errorbar=None)
+week_end = crime.groupby('day_label',as_index=False).agg(total=('total','sum'))
+sns.barplot(data = week_end, x = 'day_label',y='total', hue = 'day_label')
+plt.xlabel("평일/주말")
+plt.ylabel("건수(백만)")
+plt.title("평일/주말별 범죄 발생 건수 그래프")
+plt.show()
+plt.clf()
+```
+
+### **[범죄별 요일별 건수 비율 그래프]**
 
 ```{python}
-1 + 1
+# 7. 연도별 요일별 발생 비율(%)
+## 문제1. 연도별 비율을 구하기 위해 연도별 합계가 필요함: transform()
+## 소수 둘째자리까지만 보이기 : pd.options.display.float_format 변경
+pd.options.display.float_format = '{:.2f}'.format
+
+crime = crime.assign(
+    total_s_year = lambda x: x.groupby('year')['total_s'].transform('sum'),
+    ratio_s_day = lambda x: x['total_s'] / x['total_s_year'] * 100,
+    total_g_year = lambda x: x.groupby('year')['total_g'].transform('sum'),
+    ratio_g_day = lambda x: x['total_g'] / x['total_g_year'] * 100,
+    total_i_year = lambda x: x.groupby('year')['total_i'].transform('sum'),
+    ratio_i_day = lambda x: x['total_i'] / x['total_i_year'] * 100,
+    total_year = lambda x: x.groupby('year')['total'].transform('sum'),
+    ratio_day = lambda x: x['total'] / x['total_year'] * 100,
+)
+crime.head(7)
 ```
+
+```{python}
+
+# 연도별 요일별 범죄 건수 변화
+ratio_year_day = crime.iloc[:,[0,1,-7,-5,-3,-1]]
+ratio_year_day.head(7)
+sns.lineplot(data=ratio_year_day, x='year', y='ratio_s_day', hue='day')
+plt.xticks(np.arange(2018,2023))
+plt.xlabel("연도")
+plt.ylabel("비율(%)")
+plt.title("강력범죄 연도별 범죄율 비교 그래프")
+plt.show()
+plt.clf()
+
+sns.lineplot(data=ratio_year_day, x='year', y='ratio_g_day', hue='day')
+plt.xticks(np.arange(2018,2023))
+plt.xlabel("연도")
+plt.ylabel("비율(%)")
+plt.title("폭력범죄 연도별 범죄율 비교 그래프")
+plt.show()
+plt.clf()
+
+sns.lineplot(data=ratio_year_day, x='year', y='ratio_i_day', hue='day')
+plt.xticks(np.arange(2018,2023))
+plt.xlabel("연도")
+plt.ylabel("비율(%)")
+plt.title("지능범죄 연도별 범죄율 비교 그래프")
+plt.show()
+plt.clf()
+
+sns.lineplot(data=ratio_year_day, x='year', y='ratio_day', hue='day')
+plt.xticks(np.arange(2018,2023))
+plt.xlabel("연도")
+plt.ylabel("비율(%)")
+plt.title("전체 범죄 연도별 범죄율 비교 그래프")
+plt.show()
+plt.clf()
+```
+
+### **[요일 기준 범죄별 비율 비교 그래프]**
+```{python}
+total_day=crime.groupby('day').agg(total_s=('total_s','sum'),
+                                 total_g=('total_g','sum'),
+                                 total_i=('total_i','sum'),
+                                 total=('total','sum'))
+total_day = total_day.reindex(index=['mon','tue','wed','thu','fri','sat','sun'])
+total_day
+total_day = total_day.assign(
+    강력범죄 = lambda x: x['total_s'] / sum(x['total_s']) * 100,
+    폭력범죄 = lambda x: x['total_g'] / sum(x['total_g']) * 100,
+    지능범죄 = lambda x: x['total_i'] / sum(x['total_i']) * 100,
+    총_범죄율 = lambda x: x['total'] / sum(x['total']) * 100
+)
+ratio_total_day = total_day.iloc[:,4:]
+ratio_total_day
+
+sns.lineplot(data= ratio_total_day)
+plt.xlabel("요일")
+plt.ylabel("비율(%)")
+plt.title("요일 기준 범죄율 비교 그래프")
+plt.show()
+```
+
+#### 결론 : 강력범죄/폭력범죄는 가설에 성립하지만, 지능범죄는 반대의 결과가 도출되었다. 따라서, 강력범죄는 화요일, 폭력범죄는 월요일, 지능범죄는 일요일이 가장 안전하다.
+
+#### 생각해볼 점: 지능범죄가 평일에 많이 발생하는 이유는, 공공기관/기업 업무 시간에 이루어져야 하는 행위가 많기 때문이라고 추측된다.

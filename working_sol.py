@@ -98,6 +98,7 @@ crime = crime.assign(
 )
 crime.iloc[:,[0,1,-8,-7,-6,-5,-4,-3,-2,-1]]
 
+
 # 연도별 요일별 범죄 건수 변화
 ratio_year_day = crime.iloc[:,[0,1,-7,-5,-3,-1]]
 ratio_year_day.head(7)
@@ -122,8 +123,22 @@ plt.xticks(np.arange(2018,2023))
 plt.show()
 plt.clf()
 
-# drop(columns='year')
-ratio_year_day.groupby('day').sum()
-ratio_year_day.plot.bar(rot=0)
+total_day=crime.groupby('day').agg(total_s=('total_s','sum'),
+                                 total_g=('total_g','sum'),
+                                 total_i=('total_i','sum'),
+                                 total=('total','sum'))
+total_day = total_day.reindex(index=['mon','tue','wed','thu','fri','sat','sun'])
+total_day
+total_day = total_day.assign(
+    ratio_s = lambda x: x['total_s'] / sum(x['total_s']) * 100,
+    ratio_g = lambda x: x['total_g'] / sum(x['total_g']) * 100,
+    ratio_i = lambda x: x['total_i'] / sum(x['total_i']) * 100,
+    ratio = lambda x: x['total'] / sum(x['total']) * 100
+)
+
+ratio_total_day = total_day.iloc[:,4:]
+ratio_total_day
+sns.lineplot(data= ratio_total_day)
+
 plt.show()
 plt.clf()

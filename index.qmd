@@ -107,6 +107,26 @@ plt.show()
 plt.clf()
 ```
 
+```{python}
+# sum(crime.loc[crime['day_label']=='week','total'])
+# crime.groupby('year').agg(
+#     평일합계=lambda x: x.loc[df['day_label'] == 'week', 'total'].sum(),
+#     주말합계=lambda x: x.loc[df['day_label'] == 'weekend', 'total'].sum()
+#     )
+    
+result =crime.groupby('year').apply(
+    lambda x: pd.Series({
+        'week_sum': x.loc[x['day_label'] == 'week', 'total'].sum(),
+        'weekend_sum': x.loc[x['day_label'] == 'weekend', 'total'].sum()
+    })
+)
+sns.lineplot(data=result)
+result.plot.barh(stacked = True)
+plt.show()
+plt.clf()
+```
+
+
 ### **[범죄별 요일별 건수 비율 그래프]**
 
 ```{python}

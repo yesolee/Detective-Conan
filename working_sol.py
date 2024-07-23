@@ -50,6 +50,12 @@ crime = crime.assign(
 )
 crime.head()
 
+for i in ["_s","_g","_i",""]:
+    for j in range(2018,2023):
+        crime.loc[crime['year'] == j,'total'+i+'_year'] = sum(crime.loc[crime['year'] == j,'total'+i])
+    crime['ratio'+i+'_day'] = crime['total'+i] / crime['total'+i+'_year'] * 100
+crime.iloc[:,[0,1,-7,-5,-3,-1]]
+
 # 5. 범죄별 연도별 발생 건수 
 ## 문제1.그래프에 한글 입력 시 에러: 251p 맑은 고딕 폰트 설정
 plt.rcParams.update({'font.family':'Malgun Gothic','font.size' : 3})
@@ -85,6 +91,7 @@ plt.clf()
 ## 문제1. 연도별 비율을 구하기 위해 연도별 합계가 필요함: transform()
 ## 소수 둘째자리까지만 보이기 : pd.options.display.float_format 변경
 pd.options.display.float_format = '{:.2f}'.format
+crime.groupby('year')['total_s'].sum()
 
 crime = crime.assign(
     total_s_year = lambda x: x.groupby('year')['total_s'].transform('sum'),
@@ -100,6 +107,25 @@ crime.iloc[:,[0,1,-8,-7,-6,-5,-4,-3,-2,-1]]
 
 
 # 연도별 요일별 범죄 건수 변화
+ratio_year_day = crime.iloc[:,[0,1,-7,-5,-3,-1]]
+ratio_year_day.head(7)
+plt.figure(figsize=(10, 4))
+sns.lineplot(data=ratio_year_day, x='day', y='ratio_s_day', hue='year')
+plt.show()
+plt.clf()
+sns.lineplot(data=ratio_year_day, x='day', y='ratio_g_day', hue='year')
+plt.show()
+plt.clf()
+sns.lineplot(data=ratio_year_day, x='day', y='ratio_i_day', hue='year')
+plt.show()
+plt.clf()
+sns.lineplot(data=ratio_year_day, x='day', y='ratio_day', hue='year')
+plt.show()
+plt.clf()
+
+
+
+
 ratio_year_day = crime.iloc[:,[0,1,-7,-5,-3,-1]]
 ratio_year_day.head(7)
 plt.figure(figsize=(10, 4))
@@ -135,7 +161,7 @@ total_day = total_day.assign(
     ratio_i = lambda x: x['total_i'] / sum(x['total_i']) * 100,
     ratio = lambda x: x['total'] / sum(x['total']) * 100
 )
-
+crime['day_label']
 ratio_total_day = total_day.iloc[:,4:]
 ratio_total_day
 sns.lineplot(data= ratio_total_day)
